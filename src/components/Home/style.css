@@ -1,0 +1,27 @@
+div.Home{
+    text-align: left;
+    margin-left: 17px;
+    margin-top: -16px;
+}
+
+div.Home > table {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+div.Home > table > thead > tr > th {
+    padding-right: 21px;
+    font-size: 12px;
+}
+
+div.Home > table > tbody > tr > td {
+    padding-right: 12px;
+}
+
+div.Home > table > tbody > tr > td > a, div.Home > table > tbody > tr > td > a:active {
+color: lightseagreen;
+}
+
+div.Home > table > tbody > tr > td > a:hover {
+    color: #4d8f4d;
+    }
