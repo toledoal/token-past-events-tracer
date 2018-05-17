@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import React, { Component, cloneElement } from 'react';
+import { Link } from 'react-router-dom';
+import {ForceGraph, ForceGraphNode, ForceGraphLink, ForceGraphArrowLink} from 'react-vis-force';
 import Web3 from 'web3';
 import './style.css';
 
@@ -33,15 +34,57 @@ class Block extends Component {
             console.log("Block hash: " + block_hash);
             // Use web3 to get the Block object
             var currBlockObj = await web3.eth.getBlock(block_hash);
-            console.log(JSON.stringify(currBlockObj));
+
+            let getTransactionsInBlock = null;
+            if (currBlockObj.transactions.length !== 0){
+
+                getTransactionsInBlock = (currBlockObj) => {
+                let listOfTransactions = currBlockObj.transactions.map(async txHash => {
+                  let transactionInfo = await web3.eth.getTransaction(txHash);  
+                  return transactionInfo
+                  });
+                return Promise.all(listOfTransactions);
+              }
+
+              let txC = getTransactionsInBlock(currBlockObj);
+              
+              txC.then(data => {
+
+                let dataToChart = []
+                data.forEach(tx => {
+                  if (tx.to && tx.from){
+                  
+                    dataToChart.push(<ForceGraphNode node={{ id: tx.from }} fill="red" />);
+                    dataToChart.push(<ForceGraphNode node={{ id: tx.to }} fill="blue" />)
+                    dataToChart.push(<ForceGraphArrowLink link={{ source: tx.from, target: tx.to }} />)
+                    
+                 
+                  
+            
+                   }
+                })
+
+                this.setState({transactions: dataToChart.map(this.attachEvents)});
+              })
+
+            }
+            
             // Set the Component state
             this.setState({
               block_id: currBlockObj.number,
               block_hash: currBlockObj.hash,
               block_ts: Date(parseInt(this.state.block.timestamp, 10)).toString(),
               block_txs: parseInt(currBlockObj.transactions.slice().length, 10),
-              block: currBlockObj
+              block: currBlockObj,
             })
+          }
+
+          attachEvents(child) {
+            return cloneElement(child, {
+              onMouseDown:  console.log(child.type.name + "MouseDown") ,
+              onMouseOver: console.log(child.type.name+ "MouseOver") ,
+              onMouseOut: console.log(child.type.name+ "MouseOut") ,
+            });
           }
         
           render() {
@@ -71,6 +114,11 @@ class Block extends Component {
                     </tbody>
                   </table>
                 </div>
+                <div className="forceGraph">
+                <ForceGraph simulationOptions={{ animate: true, strength: { collide: 2,}}}>
+                {this.state.transactions}
+                </ForceGraph>
+                  </div>
               </div>
             );
           }

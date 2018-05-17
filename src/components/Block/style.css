@@ -29,3 +29,10 @@ color: lightseagreen;
 div.Block > div > table > tbody > tr > td > a:hover {
     color: #4d8f4d;
     }
+
+    .forceGraph{
+        float: right;
+        position: relative;
+        margin-top: -450px;
+        margin-right: -131px;
+    }
