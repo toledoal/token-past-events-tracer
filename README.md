@@ -14,6 +14,10 @@ Also I extended web3 to use the debug API in order to get historial data.
 The process to harvest the historical data takes between 2 and 5 minutes, so I added a donwload button so 
 people can have data.json copy. This eventually could be saved into a db for further analytics. 
 
+## Take a look at the video here
+
+[![VIDEO DEMO](https://img.youtube.com/vi/yuFVFh_xDdg/0.jpg)](https://youtu.be/yuFVFh_xDdg)
+
 ## How to use it
 1. Clone the react project git clone https://github.com/toledoal/token-past-events-tracer.git
 2. npm install 
