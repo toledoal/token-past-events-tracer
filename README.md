@@ -16,7 +16,7 @@ people can have data.json copy. This eventually could be saved into a db for fur
 
 ## Take a look at the video here
 
-[![VIDEO DEMO](https://img.youtube.com/vi/3n9uLcn5jdU/0.jpg)](hhttps://youtu.be/3n9uLcn5jdU)
+[![VIDEO DEMO](https://img.youtube.com/vi/3n9uLcn5jdU/0.jpg)](https://youtu.be/3n9uLcn5jdU)
 
 ## How to use it
 1. Clone the react project git clone https://github.com/toledoal/token-past-events-tracer.git
